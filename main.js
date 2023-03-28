@@ -1,5 +1,5 @@
 // TODO: Build a Jobs Board
-// Display job title
+// Display job title - Done
 // Display company name 
 // Display company location
 // Display remote or not
@@ -23,22 +23,37 @@ fetch("https://www.arbeitnow.com/api/job-board-api", requestOptions)
         console.log(result.data[0].location)
         console.log(result.data[0].url)
 
-        let sectionElement = document.querySelector('#mainSection')
-        let h3Tag = document.createElement('h3')
-        let jobTitleContent = document.createTextNode(result.data[0].title)
-        h3Tag.appendChild(jobTitleContent)
-        sectionElement.appendChild(h3Tag)
+        addElement(result)
+        // const sectionElement = document.getElementById('mainSection')
+        // const h3Tag = document.createElement('h3')
+        // console.log(h3Tag)
+        // const jobTitleContent = document.createTextNode(result.data[0].title)
+        // h3Tag.appendChild(jobTitleContent)
+        // document.body.insertBefore(sectionElement, h3Tag)
+        // sectionElement.appendChild(h3Tag)
+
     })
     .catch(error => console.log('error', error));
 
-// document.querySelector('#jobs').addEventListener('click', () => {
-//     const url = `https://arbeitnow.com/api/job-board-api`
-//     fetch(url)
-//         .then(res => res.json()) // parse response as JSON
-//         .then(data => {
-//             console.log(data)
-//         })
-//         .catch(err => {
-//             console.log(`error ${err}`)
-//         });
-// })
+// document.body.onload = addElement;
+
+function addElement(result) {
+    // create a new section element
+    const newSection = document.createElement("section");
+
+    // create an h3 element
+    const newH3 = document.createElement('h3')
+
+    // and give it some content
+    const jobTitle = document.createTextNode(result.data[0].title);
+
+    // add the job title node to the newly created h3
+    newH3.appendChild(jobTitle);
+
+    // add the h3 to the new section
+    newSection.appendChild(newH3)
+
+    // add the newly created element and its content into the DOM
+    const currentSection = document.getElementById("mainSection");
+    document.body.insertBefore(newSection, currentSection);
+}

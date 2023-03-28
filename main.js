@@ -7,7 +7,6 @@
 // List all jobs - Done
 // Style the jobs Board
 
-
 var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -16,10 +15,12 @@ var requestOptions = {
 fetch("https://www.arbeitnow.com/api/job-board-api", requestOptions)
     .then(res => res.json())
     .then(result => {
-        console.log(result.data)
-        for (let i = 0; i <= 100; i++) {
+        console.log(result.links)
+        for (let i = 0; i < 100; i++) {
             addJob(result, i)
         }
+        navigation(result)
+
     })
     .catch(error => console.log('error', error));
 
@@ -53,7 +54,6 @@ function addJob(result, i) {
     newPara.appendChild(remoteJob)
     aTag.appendChild(viewJobText)
 
-
     // add the tags to the new section
     newSection.appendChild(newH3)
     newSection.appendChild(newH4)
@@ -64,4 +64,27 @@ function addJob(result, i) {
     // add the newly created element and its contents into the DOM
     const currentSection = document.getElementById("mainSection")
     document.body.insertBefore(newSection, currentSection)
+}
+
+function navigation(result) {
+    const mSection = document.querySelector('#mainSection')
+    const aTag = document.createElement('a')
+    const aTag2 = document.createElement('a')
+    const aTag3 = document.createElement('a')
+
+    const firstPageText = document.createTextNode('First page')
+    const prevPageText = document.createTextNode('Previous page')
+    const nextPageText = document.createTextNode('Next page')
+
+    aTag.setAttribute('href', result.links.first)
+    aTag2.setAttribute('href', result.links.prev)
+    aTag3.setAttribute('href', result.links.next)
+
+    aTag.appendChild(firstPageText)
+    aTag2.appendChild(prevPageText)
+    aTag3.appendChild(nextPageText)
+
+    mSection.appendChild(aTag)
+    mSection.appendChild(aTag2)
+    mSection.appendChild(aTag3)
 }

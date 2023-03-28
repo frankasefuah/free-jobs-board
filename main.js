@@ -2,9 +2,8 @@
 // Display job title - Done
 // Display company name - Done 
 // Display company location - Done
-// Display remote or not
+// Display remote or not - Done
 // Display link to role - Done
-// Show hr below each job
 // List all jobs - Done
 // Style the jobs Board
 
@@ -18,8 +17,6 @@ fetch("https://www.arbeitnow.com/api/job-board-api", requestOptions)
     .then(res => res.json())
     .then(result => {
         console.log(result.data)
-        console.log(result.data)
-        console.log(result.data[0].remote)
         for (let i = 0; i <= 100; i++) {
             addJob(result, i)
         }

@@ -5,6 +5,8 @@
 // Display remote or not - Done
 // Display link to role - Done
 // List all jobs - Done
+// Added the navigation at the bottom - Done
+// Fix the navigation links
 // Style the jobs Board
 
 var requestOptions = {

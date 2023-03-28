@@ -7,6 +7,7 @@
 // Show hr below each job
 // List all jobs
 // Auto create html tags for them
+
 var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -21,6 +22,12 @@ fetch("https://www.arbeitnow.com/api/job-board-api", requestOptions)
         console.log(result.data[0].company_name)
         console.log(result.data[0].location)
         console.log(result.data[0].url)
+
+        let sectionElement = document.querySelector('#mainSection')
+        let h3Tag = document.createElement('h3')
+        let jobTitleContent = document.createTextNode(result.data[0].title)
+        h3Tag.appendChild(jobTitleContent)
+        sectionElement.appendChild(h3Tag)
     })
     .catch(error => console.log('error', error));
 

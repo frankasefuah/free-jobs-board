@@ -5,7 +5,7 @@
 // Display remote or not
 // Display link to role - Done
 // Show hr below each job
-// List all jobs
+// List all jobs - Done
 // Style the jobs Board
 
 
@@ -18,19 +18,17 @@ fetch("https://www.arbeitnow.com/api/job-board-api", requestOptions)
     .then(res => res.json())
     .then(result => {
         console.log(result.data)
-        console.log(result.data[0])
-        console.log(result.data[0].title)
-        console.log(result.data[0].company_name)
-        console.log(result.data[0].location)
-        console.log(result.data[0].url)
-
-        addJob(result)
+        console.log(result.data)
+        console.log(result.data[0].remote)
+        for (let i = 0; i <= 100; i++) {
+            addJob(result, i)
+        }
     })
     .catch(error => console.log('error', error));
 
 // document.body.onload = addElement;
 
-function addJob(result) {
+function addJob(result, i) {
     // create a new section element
     const newSection = document.createElement("section");
 
@@ -38,27 +36,32 @@ function addJob(result) {
     const newH3 = document.createElement('h3')
     const newH4 = document.createElement('h4')
     const newPar = document.createElement('p')
+    const newPara = document.createElement('p')
     const aTag = document.createElement('a')
 
     // and give it some content
-    const jobTitle = document.createTextNode(result.data[0].title)
-    const companyName = document.createTextNode(result.data[0].company_name)
-    const jobLocation = document.createTextNode(result.data[0].location)
+    const jobTitle = document.createTextNode(result.data[i].title)
+    const companyName = document.createTextNode(result.data[i].company_name)
+    const jobLocation = document.createTextNode(result.data[i].location)
     const viewJobText = document.createTextNode('Click to View Job')
+    const remoteJob = document.createTextNode(`${((result.data[i].remote) ? 'Remote' : 'Not Remote')}`)
 
     // Add the href for the link to the full job
-    aTag.setAttribute('href', result.data[0].url)
+    aTag.setAttribute('href', result.data[i].url)
 
     // add the content to the newly created tags
     newH3.appendChild(jobTitle)
     newH4.appendChild(companyName);
     newPar.appendChild(jobLocation);
+    newPara.appendChild(remoteJob)
     aTag.appendChild(viewJobText)
+
 
     // add the tags to the new section
     newSection.appendChild(newH3)
     newSection.appendChild(newH4)
     newSection.appendChild(newPar)
+    newSection.appendChild(newPara)
     newSection.appendChild(aTag)
 
     // add the newly created element and its contents into the DOM
